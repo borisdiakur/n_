@@ -5,7 +5,7 @@ Lo-Dash REPL
 [![NPM](https://nodei.co/npm/n_.png?downloads=true)](https://nodei.co/npm/n_/)
 
 ## Why
-Sometimes we use the NodeJS REPL interface to experiment with code.
+Sometimes we use the Node.js REPL interface to experiment with code.
 Wouldn't it be great to have that interface with Lo-Dash required by default?
 
 ## Installation
