@@ -1,0 +1,37 @@
+{
+  "name": "n_",
+  "version": "0.0.1",
+  "description": "The Lo-Dash REPL",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/borisdiakur/n_.git"
+  },
+  "keywords": [
+    "_",
+    "Lo-Dash",
+    "lodash",
+    "underscore",
+    "REPL",
+    "repl",
+    "console",
+    "shell",
+    "terminal",
+    "cli"
+  ],
+  "author": {
+    "name": "Boris Diakur",
+    "email": "contact@borisdiakur.com",
+    "url": "https://github.com/borisdiakur"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/borisdiakur/n_/issues"
+  },
+  "homepage": "https://github.com/borisdiakur/n_",
+  "dependencies": {
+    "lodash": ">=2.4.1"
+  }
+}
