@@ -1,8 +1,11 @@
 {
   "name": "n_",
-  "version": "0.0.1",
-  "description": "The Lo-Dash REPL",
-  "main": "index.js",
+  "version": "0.0.2",
+  "description": "Lo-Dash REPL",
+  "main": "./lib/n_",
+  "bin": {
+    "n_": "./bin/n_"
+  },
   "scripts": {},
   "repository": {
     "type": "git",
@@ -33,5 +36,8 @@
   "homepage": "https://github.com/borisdiakur/n_",
   "dependencies": {
     "lodash": ">=2.4.1"
+  },
+  "engines": {
+    "node": "*"
   }
 }

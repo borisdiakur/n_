@@ -1,6 +1,6 @@
 # n_
 
-The Lo-Dash REPL
+Lo-Dash REPL
 
 [![NPM](https://nodei.co/npm/n_.png?downloads=true)](https://nodei.co/npm/n_/)
 
@@ -17,7 +17,7 @@ $ npm i -g n_
 ## Usage
 
 ```shell
-$ node n_
+$ n_
 n_ >
 ```
 
