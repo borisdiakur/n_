@@ -1,7 +1,7 @@
 {
   "name": "n_",
-  "version": "0.0.3",
-  "description": "Node.js REPL with Lo-Dash",
+  "version": "0.0.4",
+  "description": "Lo-Dash REPL",
   "main": "./lib/n_",
   "bin": {
     "n_": "./bin/n_"
@@ -28,6 +28,18 @@
     "email": "contact@borisdiakur.com",
     "url": "https://github.com/borisdiakur"
   },
+  "contributors": [
+      {
+        "name": "Boris Diakur",
+        "email": "contact@borisdiakur.com",
+        "url": "https://github.com/borisdiakur"
+      },
+      {
+        "name": "John-David Dalton",
+        "email": "john.david.dalton@gmail.com",
+        "url": "http://allyoucanleet.com/"
+      }
+  ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
