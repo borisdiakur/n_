@@ -1,6 +1,6 @@
 # n_
 
-Lo-Dash REPL
+Node.js REPL with Lo-Dash
 
 [![NPM](https://nodei.co/npm/n_.png?downloads=true)](https://nodei.co/npm/n_/)
 
