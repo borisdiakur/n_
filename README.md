@@ -29,4 +29,7 @@ n_ > _.compact([0, 1, false, 2, '', 3]);
 n_ >
 ```
 
+__Note:__ The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
+**n_** [redirects](https://github.com/borisdiakur/n_/blob/master/lib/n_.js#L35) this special variable to `$`.
+
 Enjoy!
