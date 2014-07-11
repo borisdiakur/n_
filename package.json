@@ -1,7 +1,7 @@
 {
   "name": "n_",
-  "version": "0.0.2",
-  "description": "Lo-Dash REPL",
+  "version": "0.0.3",
+  "description": "Node.js REPL with Lo-Dash",
   "main": "./lib/n_",
   "bin": {
     "n_": "./bin/n_"
