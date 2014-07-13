@@ -1,2 +1,7 @@
 .DS_Store
 node_modules
+test
+coverage
+.coveralls.yml
+.travice.yml
+.grunt
