@@ -10,7 +10,7 @@ Node.js REPL with Lo-Dash
 
 ## Why?
 Sometimes we use the Node.js REPL interface to experiment with code.
-Wouldn't it be great to have that interface with Lo-Dash required by default?
+Wouldn’t it be great to have that interface with Lo-Dash required by default?
 
 ## Installation
 
