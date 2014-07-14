@@ -2,7 +2,7 @@
 
 Node.js REPL with Lo-Dash
 
-[![Build Status](https://api.travis-ci.org/borisdiakur/n_.png?branch=master)](https://travis-ci.org/borisdiakur/n_)
+[![Build Status](https://api.travis-ci.org/borisdiakur/n_.svg?branch=master)](https://travis-ci.org/borisdiakur/n_)
 [![Coverage Status](https://img.shields.io/coveralls/borisdiakur/n_.svg)](https://coveralls.io/r/borisdiakur/n_)
 [![Dependency Status](https://gemnasium.com/borisdiakur/n_.svg)](https://gemnasium.com/borisdiakur/n_)
 
