@@ -25,7 +25,7 @@ $ n_
 n_ >
 ```
 
-Lo-Dash is now atteched to the REPL context as `_`, so just use it:
+Lo-Dash is now attached to the REPL context as `_`, so just use it:
 
 ```shell
 n_ > _.compact([0, 1, false, 2, '', 3]);
