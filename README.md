@@ -15,7 +15,7 @@ Wouldn't it be great to have that interface with Lo-Dash required by default?
 ## Installation
 
 ```shell
-$ npm i -g n_
+$ npm install -g n_
 ```
 
 ## Usage
