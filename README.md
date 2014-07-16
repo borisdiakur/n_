@@ -2,7 +2,7 @@
 
 Node.js REPL with Lo-Dash
 
-[![Build Status](https://api.travis-ci.org/borisdiakur/n_.png?branch=master)](https://travis-ci.org/borisdiakur/n_)
+[![Build Status](https://api.travis-ci.org/borisdiakur/n_.svg?branch=master)](https://travis-ci.org/borisdiakur/n_)
 [![Coverage Status](https://img.shields.io/coveralls/borisdiakur/n_.svg)](https://coveralls.io/r/borisdiakur/n_)
 [![Dependency Status](https://gemnasium.com/borisdiakur/n_.svg)](https://gemnasium.com/borisdiakur/n_)
 
@@ -10,12 +10,12 @@ Node.js REPL with Lo-Dash
 
 ## Why?
 Sometimes we use the Node.js REPL interface to experiment with code.
-Wouldn't it be great to have that interface with Lo-Dash required by default?
+Wouldn’t it be great to have that interface with Lo-Dash required by default?
 
 ## Installation
 
 ```shell
-$ npm i -g n_
+$ npm install -g n_
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ $ n_
 n_ >
 ```
 
-Lo-Dash is now atteched to the REPL context as `_`, so just use it:
+Lo-Dash is now attached to the REPL context as `_`, so just use it:
 
 ```shell
 n_ > _.compact([0, 1, false, 2, '', 3]);
