@@ -1,7 +1,7 @@
 {
   "name": "n_",
-  "version": "0.0.5",
-  "description": "Lo-Dash REPL",
+  "version": "0.0.6",
+  "description": "lodash REPL",
   "main": "./lib/n_",
   "bin": {
     "n_": "./bin/n_"
@@ -14,28 +14,15 @@
     "coveralls": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": "borisdiakur/n_",
-  "keywords": [
-    "_",
-    "Lo-Dash",
-    "lodash",
-    "underscore",
-    "REPL",
-    "repl",
-    "console",
-    "shell",
-    "terminal",
-    "cli"
-  ],
+  "keywords": "_, cli, console, lodash, underscore, repl, shell, terminal",
   "author": "Boris Diakur <contact@borisdiakur.com> (https://github.com/borisdiakur)",
   "contributors": [
     "Boris Diakur <contact@borisdiakur.com> (https://github.com/borisdiakur)",
     "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)"
   ],
   "license": "MIT",
-  "bugs": "https://github.com/borisdiakur/n_/issues",
-  "homepage": "https://github.com/borisdiakur/n_",
   "dependencies": {
-    "lodash": ">=2.4.1"
+    "lodash": "^3.0.0"
   },
   "devDependencies": {
     "mocha": "~2.1.0",
