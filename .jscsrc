@@ -1,0 +1,88 @@
+{
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do"
+    ],
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "return",
+        "catch"
+    ],
+    "disallowKeywords": [
+        "with"
+    ],
+    "disallowKeywordsOnNewLine": [
+        "else",
+        "catch"
+    ],
+
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": [
+        "++",
+        "--"
+    ],
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,
+
+    "disallowSpacesInsideParentheses": true,
+    "disallowEmptyBlocks": true,
+
+    "requireParenthesesAroundIIFE": true,
+    "requireSpacesInFunctionDeclaration": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+
+    "requireSpacesInConditionalExpression": {
+        "afterTest": true,
+        "beforeConsequent": true,
+        "afterConsequent": true,
+        "beforeAlternate": true
+    },
+
+    "disallowSpaceBeforeBinaryOperators": [
+        ","
+    ],
+    "requireCommaBeforeLineBreak": true,
+
+    "validateQuoteMarks": "'",
+    "disallowMultipleLineStrings": true,
+
+    "disallowImplicitTypeConversion": [
+        "numeric",
+        "binary"
+    ],
+    "disallowYodaConditions": true,
+
+    "disallowSpacesInsideArrayBrackets": true,
+
+    "requireDotNotation": true,
+
+    "maximumLineLength": {
+        "value": 240,
+        "allowUrlComments": true
+    },
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "validateLineBreaks": "LF"
+}
