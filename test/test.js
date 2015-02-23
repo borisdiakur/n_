@@ -21,8 +21,20 @@ describe('n_', function () {
 
     beforeEach(function (done) { done(); });
     afterEach(function (done) { done(); });
-    
+
     describe('unit tests', function () {
+        it('should evaluate multiline input', function (done) {
+            line('var users = [');
+            line('    { user: "barney", age: 36 },');
+            line('    { user: "fred",   age: 40 },');
+            line('    { user: "barney", age: 26 },');
+            line('    { user: "fred",   age: 30 }');
+            line('];');
+            assert.equal(result, undefined);
+            line('_.map(_.sortByAll(users, ["user", "age"]), _.values);');
+            assert.deepEqual(result, [['barney', 26], ['barney', 36], ['fred', 30], ['fred', 40]]);
+            done();
+        });
         it('should evaluate simple input', function (done) {
             line('1+2');
             assert.equal(result, 3);
