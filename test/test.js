@@ -21,7 +21,7 @@ describe('n_', function () {
 
     beforeEach(function (done) { done(); });
     afterEach(function (done) { done(); });
-    
+
     describe('unit tests', function () {
         it('should evaluate simple input', function (done) {
             line('1+2');
@@ -33,6 +33,13 @@ describe('n_', function () {
             assert.deepEqual(result, [1, 2, 4]);
             line('_.compact([1, false, 3, 4])');
             assert.deepEqual(result, [1, 3, 4]);
+            done();
+        });
+        it('should evaluate with built in libs', function (done) {
+            line('util.isArray(_.drop([1, 2, 3]))');
+            assert.equal(result, true);
+            line('_.name');
+            assert.equal(result, 'lodash');
             done();
         });
         it('should redirect to $', function (done) {
