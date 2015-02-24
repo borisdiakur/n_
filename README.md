@@ -8,6 +8,8 @@ Node.js REPL with lodash
 
 [![NPM](https://nodei.co/npm/n_.png?downloads=true)](https://nodei.co/npm/n_/)
 
+![animated gif showing usage of n_](https://cloud.githubusercontent.com/assets/527049/6358450/ddcb3144-bc6b-11e4-81bd-a3661407f87a.gif)
+
 ## Why?
 Sometimes we use the Node.js REPL interface to experiment with code.
 Wouldn’t it be great to have that interface with lodash required by default?
