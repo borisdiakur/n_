@@ -34,6 +34,6 @@ n_ >
 ```
 
 __Note:__ The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
-**n_** redirects this special variable to `$`.
+**n_** redirects this special variable to `$`. Also note that using the command `.clear` clears the context to which lodash is bound.
 
 Enjoy!
