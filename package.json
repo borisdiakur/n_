@@ -7,9 +7,9 @@
     "n_": "./bin/n_"
   },
   "scripts": {
-    "test": "mocha test && grunt",
+    "test": "mocha test && npm run jshint",
     "mocha": "mocha --reporter min test",
-    "jshint": "grunt",
+    "jshint": "./node_modules/.bin/jshint .",
     "istanbul": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report html && open coverage/lib/n_.js.html",
     "coveralls": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -25,13 +25,11 @@
     "lodash": "^3.0.0"
   },
   "devDependencies": {
-    "mocha": "~2.1.0",
-    "istanbul": "~0.3.5",
     "coveralls": "~2.11.2",
-    "mocha-lcov-reporter": "0.0.1",
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.11.0",
-    "grunt-cli": "~0.1.13"
+    "istanbul": "~0.3.5",
+    "jshint": "^2.7.0",
+    "mocha": "~2.1.0",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "engines": {
     "node": ">=0.8.0"
