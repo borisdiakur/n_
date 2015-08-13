@@ -35,7 +35,20 @@ n_ > _.compact([0, 1, false, 2, '', 3]);
 n_ >
 ```
 
-__Note:__ The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
-**n_** redirects this special variable to `$`. Also note that using the command `.clear` clears the context to which lodash is bound.
+__Note:__
+
+The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
+**n_** redirects this special variable to `$` per default, but you can set your own using the environment variable `SPECIAL_VAR` like this:
+
+```shell
+$ SPECIAL_VAR=my_var n_
+n_ > 123
+123
+n_ > my_var
+123
+n_ >
+```
+
+Also note that using the command `.clear` you clear the context lodash is bound to.
 
 Enjoy!

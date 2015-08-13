@@ -1,12 +1,12 @@
 'use strict';
-/* global describe, beforeEach, afterEach, it */
+/* global describe, beforeEach, it */
 /* jshint unused:vars */
 
 var assert = require('assert'),
     _ = require('lodash'),
     n_ = require('../lib/n_'),
     line = n_.rli._events.line,
-    result;
+    result = null;
 
 n_.writer = _.wrap(n_.writer, function (writer, obj) {
     result = obj;
@@ -19,10 +19,7 @@ n_.writer = _.wrap(n_.writer, function (writer, obj) {
 
 describe('n_', function () {
 
-    beforeEach(function (done) { done(); });
-    afterEach(function (done) { done(); });
-
-    describe('unit tests', function () {
+    describe('default special var', function () {
         it('should evaluate multiline input', function (done) {
             line('var users = [');
             line('    { user: "barney", age: 36 },');
@@ -43,6 +40,7 @@ describe('n_', function () {
         it('should evaluate multiple lodash method calls', function (done) {
             line('_.compact([1, 2, false, 4])');
             assert.deepEqual(result, [1, 2, 4]);
+            result = null;
             line('_.compact([1, false, 3, 4])');
             assert.deepEqual(result, [1, 3, 4]);
             done();
@@ -57,6 +55,7 @@ describe('n_', function () {
         it('should redirect to $', function (done) {
             line('"abc"');
             assert.equal(result, 'abc');
+            result = null;
             line('$');
             assert.equal(result, 'abc');
             done();
@@ -64,8 +63,44 @@ describe('n_', function () {
         it('should overwrite _', function (done) {
             line('_="foobar"');
             assert.equal(result, 'foobar');
+            result = null;
             line('_');
             assert.equal(result, 'foobar');
+            done();
+        });
+    });
+
+    describe('custom special var', function () {
+        beforeEach(function (done) {
+            // delete n_ require cache
+            delete require.cache[require.resolve('../lib/n_.js')];
+
+            // set a custom special var
+            process.env.SPECIAL_VAR = 'qux';
+
+            // now require and setup n_ (it should now use the custom special var)
+            n_ = require('../lib/n_');
+            line = n_.rli._events.line;
+            result = null;
+            n_.writer = _.wrap(n_.writer, function (writer, obj) {
+                result = obj;
+                if (_.isObject(result)) {
+                    return JSON.stringify(result);
+                } else {
+                    return String(result);
+                }
+            });
+            done();
+        });
+
+        it('should redirect to #', function (done) {
+            line('"abc"');
+            assert.equal(result, 'abc');
+            result = null;
+            line('qux');
+            assert.equal(result, 'abc');
+            line('_.compact([1, false, 3, null])');
+            assert.deepEqual(result, [1, 3]);
             done();
         });
     });
