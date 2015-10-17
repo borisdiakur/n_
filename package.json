@@ -9,9 +9,9 @@
   "scripts": {
     "test": "mocha test && npm run jshint",
     "mocha": "mocha --reporter min test",
-    "jshint": "./node_modules/.bin/jshint .",
-    "istanbul": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report html && open coverage/lib/n_.js.html",
-    "coveralls": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "jshint": "jshint .",
+    "istanbul": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report html && open coverage/lib/n_.js.html",
+    "coveralls": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": "borisdiakur/n_",
   "keywords": "_, cli, console, lodash, underscore, repl, shell, terminal",
