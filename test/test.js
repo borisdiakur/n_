@@ -1,8 +1,11 @@
 'use strict';
 /* global describe, beforeEach, it */
-/* jshint unused:vars */
 
-var assert = require('assert'), _ = require('lodash'), n_ = require('../lib/n_'), line = n_.rli._events.line, result = null;
+var assert = require('assert'),
+    _ = require('lodash'),
+    n_ = require('../lib/n_'),
+    line = n_.rli._events.line,
+    result = null;
 
 n_.writer = _.wrap(n_.writer, function (writer, obj) {
     result = obj;
@@ -40,18 +43,10 @@ describe('n_', function () {
         });
         it('should evaluate multiple lodash method calls', function (done) {
             line('_.compact([1, 2, false, 4])');
-            assert.deepEqual(result, [
-                1,
-                2,
-                4
-            ]);
+            assert.deepEqual(result, [1, 2, 4]);
             result = null;
             line('_.compact([1, false, 3, 4])');
-            assert.deepEqual(result, [
-                1,
-                3,
-                4
-            ]);
+            assert.deepEqual(result, [1, 3, 4]);
             done();
         });
         it('should evaluate with built in libs', function (done) {
@@ -109,10 +104,7 @@ describe('n_', function () {
             line('qux');
             assert.equal(result, 'abc');
             line('_.compact([1, false, 3, null])');
-            assert.deepEqual(result, [
-                1,
-                3
-            ]);
+            assert.deepEqual(result, [1, 3]);
             done();
         });
     });
