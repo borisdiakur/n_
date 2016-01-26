@@ -1,5 +1,5 @@
 'use strict';
-/* global describe, beforeEach, it */
+/* global describe, it */
 
 var assert = require('assert'),
     _ = require('lodash'),
@@ -15,6 +15,24 @@ n_.writer = _.wrap(n_.writer, function (writer, obj) {
         return String(result);
     }
 });
+
+function reset() {
+    // delete n_ require cache
+    delete require.cache[require.resolve('../lib/n_.js')];
+
+    // now require and setup n_ (it should now use the custom special var)
+    n_ = require('../lib/n_');
+    line = n_.rli._events.line;
+    result = null;
+    n_.writer = _.wrap(n_.writer, function (writer, obj) {
+        result = obj;
+        if (_.isObject(result)) {
+            return JSON.stringify(result);
+        } else {
+            return String(result);
+        }
+    });
+}
 
 describe('n_', function () {
 
@@ -75,29 +93,13 @@ describe('n_', function () {
     });
 
     describe('custom special var', function () {
-        beforeEach(function (done) {
-            // delete n_ require cache
-            delete require.cache[require.resolve('../lib/n_.js')];
-
+        it('should redirect to #', function (done) {
             // set a custom special var
             process.env.SPECIAL_VAR = 'qux';
 
             // now require and setup n_ (it should now use the custom special var)
-            n_ = require('../lib/n_');
-            line = n_.rli._events.line;
-            result = null;
-            n_.writer = _.wrap(n_.writer, function (writer, obj) {
-                result = obj;
-                if (_.isObject(result)) {
-                    return JSON.stringify(result);
-                } else {
-                    return String(result);
-                }
-            });
-            done();
-        });
+            reset();
 
-        it('should redirect to #', function (done) {
             line('"abc"');
             assert.equal(result, 'abc');
             result = null;
@@ -108,4 +110,39 @@ describe('n_', function () {
             done();
         });
     });
+
+    if (process.version.indexOf('v0.') !== 0) {
+        describe('strict mode in node >= 4.x', function (done) {
+            it('should not throw in magic mode', function (done) {
+                line('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1;');
+                assert.equal(result, 1);
+                done();
+            });
+            it('should throw in strict mode set via environment variable', function (done) {
+                // enable strict mode
+                process.env.NODE_REPL_MODE = 'strict';
+
+                // now require and setup n_ (it should now run in strict mode)
+                reset();
+
+                line('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1;');
+                assert.equal(result, null);
+                done();
+            });
+            it('should throw in strict mode set via command line option', function (done) {
+                // reset environment variab
+                process.env.NODE_REPL_MODE = undefined;
+
+                // enable strict mode
+                process.argv.push('--use_strict');
+
+                // now require and setup n_ (it should now run with strict mode enabled)
+                reset();
+
+                line('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1;');
+                assert.equal(result, null);
+                done();
+            });
+        });
+    }
 });

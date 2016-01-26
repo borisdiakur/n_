@@ -34,6 +34,22 @@ n_ > _.compact([0, 1, false, 2, '', 3]);
 n_ >
 ```
 
+### Strict mode
+
+It is possible to enable strict mode in Node.js >= 4.x:
+
+```shell
+$ n_ --use_strict
+n_ >
+```
+
+Or alternatively:
+
+```shell
+$ NODE_REPL_MODE=strict n_
+n_ >
+```
+
 __Note:__
 
 The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
