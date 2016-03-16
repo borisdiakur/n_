@@ -1,6 +1,10 @@
 ### 1.1.0 (2016-01-26)
 
-* you can now enable strict mode via `$ NODE_REPL_MODE=strict n_` or `$ NODE_REPL_MODE=strict n_` in Node.js >= 4.x
+* you can now enable FP mode via `$ n_ --fp`
+
+### 1.1.0 (2016-01-26)
+
+* you can now enable strict mode via `$ n_ --use_strict` or `$ NODE_REPL_MODE=strict n_` in Node.js >= 4.x
 
 ### 1.0.0 (2016-01-13)
 
