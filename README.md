@@ -34,6 +34,17 @@ n_ > _.compact([0, 1, false, 2, '', 3]);
 n_ >
 ```
 
+### FP mode
+
+It is possible to use lodash's functional programming variant `lodash/fp`:
+
+```shell
+$ n_ --fp
+n_ > _.map(function(v) { return v * 2; }, [1, 2, 3]);
+[ 2, 4, 6 ]
+n_ >
+```
+
 ### Strict mode
 
 It is possible to enable strict mode in Node.js >= 4.x:

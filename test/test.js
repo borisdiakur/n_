@@ -111,6 +111,23 @@ describe('n_', function () {
         });
     });
 
+    describe('enabling fp mode', function () {
+        it('should use lodash/fp', function (done) {
+            var previousArgv = process.argv;
+            // enable fp mode
+            process.argv = _.concat(previousArgv, ['--fp']);
+
+            // now require and setup n_ (it should now use lodash/fp)
+            reset();
+            // Reset argv to previous value
+            process.argv = previousArgv;
+
+            line('_.map(function(v) { return v * 2; }, [1, 2, 3]);');
+            assert.deepEqual(result, [2, 4, 6]);
+            done();
+        });
+    });
+
     if (process.version.indexOf('v0.') !== 0) {
         describe('strict mode in node >= 4.x', function (done) {
             it('should not throw in magic mode', function (done) {
