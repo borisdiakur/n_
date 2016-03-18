@@ -36,7 +36,7 @@ n_ >
 
 ### FP mode
 
-It is possible to use lodash's functional programming variant `lodash/fp`:
+It is possible to use lodash’s functional programming variant `lodash/fp`:
 
 ```shell
 $ n_ --fp
@@ -61,7 +61,9 @@ $ NODE_REPL_MODE=strict n_
 n_ >
 ```
 
-__Note:__
+## Notes
+
+### Special character `_`
 
 The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
 **n_** redirects this special variable to `$` per default, but you can set your own using the environment variable `SPECIAL_VAR` like this:
@@ -76,5 +78,9 @@ n_ >
 ```
 
 Also note that using the command `.clear` you clear the context lodash is bound to.
+
+### History persistence
+
+**n_** stores its session history under `~/.n_repl_history`.
 
 Enjoy!

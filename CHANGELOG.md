@@ -1,3 +1,7 @@
+### 1.3.0 (2016-03-18)
+
+* **n_** stores its session history under `~/.n_repl_history`
+
 ### 1.2.0 (2016-03-16)
 
 * you can now enable FP mode via `$ n_ --fp`

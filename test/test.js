@@ -2,9 +2,12 @@
 /* global describe, it */
 
 var assert = require('assert'),
+    fs = require('fs'),
     _ = require('lodash'),
     n_ = require('../lib/n_'),
     line = n_.rli._events.line,
+    osHomedir = require('os-homedir'),
+    path = require('path'),
     result = null;
 
 n_.writer = _.wrap(n_.writer, function (writer, obj) {
@@ -113,13 +116,13 @@ describe('n_', function () {
 
     describe('enabling fp mode', function () {
         it('should use lodash/fp', function (done) {
-            var previousArgv = process.argv;
             // enable fp mode
+            var previousArgv = process.argv;
             process.argv = _.concat(previousArgv, ['--fp']);
 
             // now require and setup n_ (it should now use lodash/fp)
             reset();
-            // Reset argv to previous value
+            // reset argv to previous value
             process.argv = previousArgv;
 
             line('_.map(function(v) { return v * 2; }, [1, 2, 3]);');
@@ -137,24 +140,27 @@ describe('n_', function () {
             });
             it('should throw in strict mode set via environment variable', function (done) {
                 // enable strict mode
+                var previousReplMode = process.env.NODE_REPL_MODE;
                 process.env.NODE_REPL_MODE = 'strict';
 
                 // now require and setup n_ (it should now run in strict mode)
                 reset();
+                // reset NODE_REPL_MODE to previous value
+                process.env.NODE_REPL_MODE = previousReplMode;
 
                 line('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1;');
                 assert.equal(result, null);
                 done();
             });
             it('should throw in strict mode set via command line option', function (done) {
-                // reset environment variab
-                process.env.NODE_REPL_MODE = undefined;
-
                 // enable strict mode
-                process.argv.push('--use_strict');
+                var previousArgv = process.argv;
+                process.argv = _.concat(previousArgv, ['--use_strict']);
 
                 // now require and setup n_ (it should now run with strict mode enabled)
                 reset();
+                // reset argv to previous value
+                process.argv = previousArgv;
 
                 line('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1;');
                 assert.equal(result, null);
@@ -162,4 +168,28 @@ describe('n_', function () {
             });
         });
     }
+
+    describe('repl history', function () {
+        it('should save and load repl history across multiple sessions', function (done) {
+            var historyPath = path.join(osHomedir(), '.n_repl_history');
+
+            // delete any previously created history file
+            fs.unlinkSync(historyPath);
+
+            reset(); // new session
+            line('1+2');
+            reset(); // new session
+            line('null');
+            reset(); // new session
+            line('"foobar"');
+            reset(); // new session
+
+            // check history (as thoroughly as possible)
+            var historyFileContent = fs.readFileSync(historyPath, 'utf-8');
+            assert.equal(historyFileContent, ['1+2', 'null', '"foobar"', ''].join('\n'));
+            line('.load ' + historyPath);
+            assert.equal(result, 'foobar');
+            done();
+        });
+    });
 });
