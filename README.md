@@ -84,7 +84,7 @@ Also note that in node < 6.x using the command `.clear` you clear the context lo
 
 #### node >= 6.x
 
-The behavior of assigning _ to the last evaluated expression is disabled, since lodash is already assigned to _.
+The behavior of assigning `_` to the last evaluated expression is disabled, since lodash is already assigned to `_`.
 
 ### History persistence
 
