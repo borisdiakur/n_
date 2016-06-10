@@ -8,7 +8,8 @@ var assert = require('assert'),
     line = n_.rli._events.line,
     osHomedir = require('os-homedir'),
     path = require('path'),
-    result = null;
+    result = null,
+    useRedirect = parseInt(process.version.split('.')[0].split('v')[1]) < 6; // node < 6.x
 
 n_.writer = _.wrap(n_.writer, function (writer, obj) {
     result = obj;
@@ -77,41 +78,80 @@ describe('n_', function () {
             assert.equal(result, 'lodash');
             done();
         });
-        it('should redirect to $', function (done) {
-            line('"abc"');
-            assert.equal(result, 'abc');
-            result = null;
-            line('$');
-            assert.equal(result, 'abc');
-            done();
-        });
-        it('should overwrite _', function (done) {
-            line('_="foobar"');
-            assert.equal(result, 'foobar');
-            result = null;
-            line('_');
-            assert.equal(result, 'foobar');
-            done();
-        });
+
+        if (useRedirect) { // if node < 6.x
+            it('should redirect to $', function (done) {
+                line('"abc"');
+                assert.equal(result, 'abc');
+                result = null;
+                line('$');
+                assert.equal(result, 'abc');
+                done();
+            });
+            it('should overwrite _', function (done) {
+                line('_="foobar"');
+                assert.equal(result, 'foobar');
+                result = null;
+                line('_');
+                assert.equal(result, 'foobar');
+                done();
+            });
+        } else {
+            it('should not redirect to $', function (done) {
+                line('"abc"');
+                assert.equal(result, 'abc');
+                result = null;
+                line('$');
+                assert.equal(result, undefined);
+                done();
+            });
+            it('should not overwrite _', function (done) {
+                line('_="foobar"');
+                assert.equal(result, 'foobar');
+                result = null;
+                line('_.name');
+                assert.equal(result, 'lodash');
+                done();
+            });
+        }
     });
 
     describe('custom special var', function () {
-        it('should redirect to #', function (done) {
-            // set a custom special var
-            process.env.SPECIAL_VAR = 'qux';
+        if (useRedirect) { // if node < 6.x
+            it('should redirect to special var', function (done) {
+                // set a custom special var
+                process.env.SPECIAL_VAR = 'qux';
 
-            // now require and setup n_ (it should now use the custom special var)
-            reset();
+                // now require and setup n_ (it should now use the custom special var)
+                reset();
 
-            line('"abc"');
-            assert.equal(result, 'abc');
-            result = null;
-            line('qux');
-            assert.equal(result, 'abc');
-            line('_.compact([1, false, 3, null])');
-            assert.deepEqual(result, [1, 3]);
-            done();
-        });
+                line('"abc"');
+                assert.equal(result, 'abc');
+                result = null;
+                line('qux');
+                assert.equal(result, 'abc');
+                line('_.compact([1, false, 3, null])');
+                assert.deepEqual(result, [1, 3]);
+                done();
+            });
+        } else {
+             it('should not redirect to special var', function (done) {
+                // set a custom special var
+                process.env.SPECIAL_VAR = 'qux';
+
+                // now require and setup n_ (it should not use the custom special var)
+                reset();
+
+                line('"abc"');
+                assert.equal(result, 'abc');
+                result = null;
+                line('qux');
+                assert.equal(result, undefined);
+                line('_.compact([1, false, 3, null])');
+                assert.deepEqual(result, [1, 3]);
+                done();
+            });
+        }
     });
 
     describe('enabling fp mode', function () {

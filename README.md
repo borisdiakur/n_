@@ -65,8 +65,11 @@ n_ >
 
 ### Special character `_`
 
+#### node < 6.x
+
 The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
-**n_** redirects this special variable to `$` per default, but you can set your own using the environment variable `SPECIAL_VAR` like this:
+
+In node versions < 6.x **n_** redirects this special variable to `$` per default, but you can set your own using the environment variable `SPECIAL_VAR` like this:
 
 ```shell
 $ SPECIAL_VAR=my_var n_
@@ -77,7 +80,11 @@ n_ > my_var
 n_ >
 ```
 
-Also note that using the command `.clear` you clear the context lodash is bound to.
+Also note that in node < 6.x using the command `.clear` you clear the context lodash is bound to.
+
+#### node >= 6.x
+
+The behavior of assigning _ to the last evaluated expression is disabled, since lodash is already assigned to _.
 
 ### History persistence
 
