@@ -5,3 +5,4 @@ coverage
 .coveralls.yml
 .travice.yml
 .grunt
+*.tgz

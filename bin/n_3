@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.N_LODASH_REQUIRE_PATH = 'lodash@^3.10.1';
+process.env.N_LODASH_REQUIRE_PATH = 'lodash3/package/';
 
 var path = require('path'),
     fs = require('fs'),

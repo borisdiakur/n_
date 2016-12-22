@@ -1,3 +1,7 @@
+### 1.4.2 (2016-12-22)
+
+* fix: using tar.gz package to “manually” unpack lodash@3 instead of npm-install-version
+
 ### 1.4.1 (2016-12-22)
 
 * fix: bin entry n_3 was missing in package.json
