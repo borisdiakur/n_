@@ -256,4 +256,19 @@ describe('n_3', function () {
             done();
         });
     });
+
+    describe('enabling fp mode', function () {
+        it('should fail using lodash/fp', function (done) {
+            // enable fp mode
+            var previousArgv = process.argv;
+            process.argv = _.concat(previousArgv, ['--fp']);
+
+            // now require and setup n_3 (it should now throw because there is no lodash/fp)
+            delete require.cache[require.resolve('../lib/n_.js')];
+            assert.throws(function () {
+                require('../lib/n_');
+            });
+            done();
+        });
+    });
 });

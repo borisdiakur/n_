@@ -1,3 +1,7 @@
+### 1.4.3 (2016-12-22)
+
+* fix: `$ n_3 --fp` now throws as FP-mode does not exist in lodash@3.10.1.
+
 ### 1.4.2 (2016-12-22)
 
 * fix: using tar.gz package to “manually” unpack lodash@3 instead of npm-install-version
