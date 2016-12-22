@@ -243,7 +243,7 @@ describe('n_3', function () {
 
     describe('lodash@3.x specific evaluation', function () {
         it('should contain method pluck', function (done) {
-            process.env.N_LODASH_REQUIRE_PATH = 'lodash@^3.10.1';
+            process.env.N_LODASH_REQUIRE_PATH = 'lodash3/package/';
             reset();
             line('typeof _.pluck');
             assert.equal(result, 'function');
