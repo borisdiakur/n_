@@ -4,7 +4,8 @@
   "description": "lodash REPL",
   "main": "./lib/n_",
   "bin": {
-    "n_": "./bin/n_"
+    "n_": "./bin/n_",
+    "n_3": "./bin/n_3"
   },
   "scripts": {
     "postinstall": "niv lodash@^3.10.1",

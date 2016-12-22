@@ -1,3 +1,7 @@
+### 1.4.1 (2016-12-22)
+
+* fix: bin entry n_3 was missing in package.json
+
 ### 1.4.0 (2016-12-22)
 
 * **n_** additionally includes lodash@^3.10.1 selectable via `n_3`
