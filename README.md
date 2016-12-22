@@ -61,6 +61,19 @@ $ NODE_REPL_MODE=strict n_
 n_ >
 ```
 
+### Using a different lodash version
+
+**n_** additionally includes all major versions of lodash starting with lodash@^3.10.1 selectable via `n_<major version number>`:
+
+```shell
+$ n_3
+n_ > _.pluck
+[Function: pluck]
+n_ >
+```
+
+If lodash has made another major jump and I didn’t notice, give me a heads-up.
+
 ## Notes
 
 ### Special character `_`

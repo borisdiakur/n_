@@ -1,3 +1,7 @@
+### 1.4.0 (2016-12-22)
+
+* **n_** additionally includes lodash@^3.10.1 selectable via `n_3`
+
 ### 1.3.0 (2016-03-18)
 
 * **n_** stores its session history under `~/.n_repl_history`

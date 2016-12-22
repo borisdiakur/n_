@@ -7,6 +7,7 @@
     "n_": "./bin/n_"
   },
   "scripts": {
+    "postinstall": "niv lodash@^3.10.1",
     "test": "mocha test && npm run jshint",
     "mocha": "mocha --reporter min test",
     "jshint": "jshint .",
@@ -23,6 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.0.0",
+    "npm-install-version": "^6.0.1",
     "os-homedir": "^1.0.1",
     "repl.history": "^0.1.3"
   },

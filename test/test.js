@@ -78,6 +78,11 @@ describe('n_', function () {
             assert.equal(result, 'lodash');
             done();
         });
+        it('should not contain method pluck', function (done) {
+            line('typeof _.pluck');
+            assert.equal(result, 'undefined');
+            done();
+        });
 
         if (useRedirect) { // if node < 6.x
             it('should redirect to $', function (done) {
@@ -229,6 +234,25 @@ describe('n_', function () {
             assert.equal(historyFileContent, ['1+2', 'null', '"foobar"', ''].join('\n'));
             line('.load ' + historyPath);
             assert.equal(result, 'foobar');
+            done();
+        });
+    });
+});
+
+describe('n_3', function () {
+
+    describe('lodash@3.x specific evaluation', function () {
+        it('should contain method pluck', function (done) {
+            process.env.N_LODASH_REQUIRE_PATH = 'lodash@^3.10.1';
+            reset();
+            line('typeof _.pluck');
+            assert.equal(result, 'function');
+            done();
+        });
+        it('should evaluate simple input', function (done) {
+            line('var objects = [{ a: 1 }, { a: 2 }];');
+            line('_.pluck(objects, "a");');
+            assert.deepEqual(result, [1, 2]);
             done();
         });
     });
