@@ -9,7 +9,7 @@
   },
   "scripts": {
     "postinstall": "npm pack lodash@^3 ; targz extract lodash-3.*.tgz node_modules/lodash3",
-    "test": "mocha test && npm run jshint",
+    "test": "npm run postinstall ; mocha test && npm run jshint",
     "mocha": "mocha --reporter min test",
     "jshint": "jshint .",
     "istanbul": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report html && open coverage/lib/n_.js.html",
