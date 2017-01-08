@@ -6,3 +6,4 @@ coverage
 .travice.yml
 .grunt
 *.tgz
+extraneous/lodash*

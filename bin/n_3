@@ -2,10 +2,12 @@
 
 'use strict';
 
-process.env.N_LODASH_REQUIRE_PATH = 'lodash3/package/';
-
 var path = require('path'),
     fs = require('fs'),
-    lib = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
+    filename = path.dirname(fs.realpathSync(__filename)),
+    extraneous = path.join(filename, '../extraneous'),
+    lib = path.join(filename, '../lib');
+
+process.env.N_LODASH_REQUIRE_PATH = extraneous + '/lodash3/package/';
 
 require(lib + '/n_.js');

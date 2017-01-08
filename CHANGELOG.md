@@ -1,3 +1,7 @@
+### 1.4.4 (2017-01-08)
+
+* fix: all additional lodash versions are now stored in the folder _extraneous_ (resolves #19)
+
 ### 1.4.3 (2016-12-22)
 
 * fix: `$ n_3 --fp` now throws as FP-mode does not exist in lodash@3.10.1.
