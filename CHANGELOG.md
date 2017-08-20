@@ -1,3 +1,7 @@
+### 1.4.5 (2017-08-20)
+
+* fix: install on windows (resolves #21)
+
 ### 1.4.4 (2017-01-08)
 
 * fix: all additional lodash versions are now stored in the folder _extraneous_ (resolves #19)
