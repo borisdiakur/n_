@@ -8,7 +8,7 @@
     "n_3": "./bin/n_3"
   },
   "scripts": {
-    "postinstall": "npm pack lodash@^3 ; targz extract lodash-3.*.tgz extraneous/lodash3",
+    "postinstall": "npm pack lodash@^3 && targz extract lodash-3.*.tgz extraneous/lodash3",
     "test": "npm run postinstall ; mocha test && npm run jshint",
     "mocha": "mocha --reporter min test",
     "jshint": "jshint .",
