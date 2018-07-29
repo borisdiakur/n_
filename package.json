@@ -1,6 +1,6 @@
 {
   "name": "n_",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "lodash REPL",
   "main": "./lib/n_",
   "bin": {
@@ -16,7 +16,16 @@
     "coveralls": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --exit -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": "borisdiakur/n_",
-  "keywords": ["_", "cli", "console", "lodash", "underscore", "repl", "shell", "terminal"],
+  "keywords": [
+    "_",
+    "cli",
+    "console",
+    "lodash",
+    "underscore",
+    "repl",
+    "shell",
+    "terminal"
+  ],
   "author": "Boris Diakur <contact@borisdiakur.com> (https://github.com/borisdiakur)",
   "contributors": [
     "Boris Diakur <contact@borisdiakur.com> (https://github.com/borisdiakur)",
