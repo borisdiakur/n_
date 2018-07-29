@@ -4,7 +4,6 @@ Node.js REPL with lodash
 
 [![Build Status](https://travis-ci.org/borisdiakur/n_.svg?branch=master)](https://travis-ci.org/borisdiakur/n_)
 [![Coverage Status](https://coveralls.io/repos/borisdiakur/n_/badge.svg?branch=master)](https://coveralls.io/r/borisdiakur/n_?branch=master)
-[![Dependency Status](https://gemnasium.com/borisdiakur/n_.svg)](https://gemnasium.com/borisdiakur/n_)
 [![npm version](https://badge.fury.io/js/n_.svg)](http://badge.fury.io/js/n_)
 
 ![animated gif showing usage of n_](https://cloud.githubusercontent.com/assets/527049/6358450/ddcb3144-bc6b-11e4-81bd-a3661407f87a.gif)

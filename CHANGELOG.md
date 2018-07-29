@@ -1,3 +1,7 @@
+### 1.4.6 (2018-07-29)
+
+* added package-lock.json
+
 ### 1.4.5 (2017-08-20)
 
 * fix: install on windows (resolves #21)
