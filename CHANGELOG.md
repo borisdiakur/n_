@@ -1,3 +1,7 @@
+### 1.4.7 (2019-04-04)
+
+* lodash upgrade to v4.17.11
+
 ### 1.4.6 (2018-07-29)
 
 * added package-lock.json
