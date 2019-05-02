@@ -1,3 +1,7 @@
+### 1.4.8 (2019-05-02)
+
+* fix: rli related deprecation warning
+
 ### 1.4.7 (2019-04-04)
 
 * lodash upgrade to v4.17.11
