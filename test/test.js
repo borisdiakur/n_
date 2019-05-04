@@ -80,12 +80,6 @@ describe('n_', function () {
     done()
   })
 
-  it('should not contain method pluck', function (done) {
-    line('typeof _.pluck')
-    assert.strictEqual(result, 'undefined')
-    done()
-  })
-
   it('should overwrite special variable _', function (done) {
     line('_="foobar"')
     assert.strictEqual(result, 'foobar')
