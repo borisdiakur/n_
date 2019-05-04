@@ -53,48 +53,9 @@ $ n_ --use_strict
 n_ >
 ```
 
-Or alternatively:
-
-```shell
-$ NODE_REPL_MODE=strict n_
-n_ >
-```
-
-### Using a different lodash version
-
-**n_** additionally includes all major versions of lodash starting with lodash@^3.10.1 selectable via `n_<major version number>`:
-
-```shell
-$ n_3
-n_ > _.pluck
-[Function: pluck]
-n_ >
-```
-
-If lodash has made another major jump and I didn’t notice, give me a heads-up.
-
 ## Notes
 
 ### Special character `_`
-
-#### node < 6.x
-
-The `_` character is special in the Node REPL (see [nodejs.org/api/repl.html](http://nodejs.org/api/repl.html#repl_repl_features)).
-
-In node versions < 6.x **n_** redirects this special variable to `$` per default, but you can set your own using the environment variable `SPECIAL_VAR` like this:
-
-```shell
-$ SPECIAL_VAR=my_var n_
-n_ > 123
-123
-n_ > my_var
-123
-n_ >
-```
-
-Also note that in node < 6.x using the command `.clear` you clear the context lodash is bound to.
-
-#### node >= 6.x
 
 The behavior of assigning `_` to the last evaluated expression is disabled, since lodash is already assigned to `_`.
 

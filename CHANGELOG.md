@@ -1,3 +1,8 @@
+### 2.0.0 (2019-05-04)
+
+* BREAKING CHANGE: drop support for old lodash version (3.x) and ancient node versions (< 6.x)
+* BREAKING CHANGE: drop support for enabling strict mode via environment variable NODE_REPL_MODE
+
 ### 1.4.8 (2019-05-02)
 
 * fix: rli related deprecation warning

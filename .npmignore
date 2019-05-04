@@ -4,6 +4,3 @@ test
 coverage
 .coveralls.yml
 .travice.yml
-.grunt
-*.tgz
-extraneous/lodash*
