@@ -1,3 +1,6 @@
+### 2.0.1 (2019-05-05)
+* fix: os-homedir related deprecation warning
+
 ### 2.0.0 (2019-05-04)
 
 * BREAKING CHANGE: drop support for old lodash version (3.x) and ancient node versions (< 6.x)

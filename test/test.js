@@ -5,7 +5,7 @@ var fs = require('fs')
 var _ = require('lodash')
 var n_ = require('../lib/n_')
 var line = n_.rli._events.line
-var osHomedir = require('os-homedir')
+var osHomedir = require('os').homedir()
 var path = require('path')
 var result = null
 
@@ -126,7 +126,7 @@ describe('n_', function () {
   })
 
   it('should save and load repl history across multiple sessions', function (done) {
-    var historyPath = path.join(osHomedir(), '.n_repl_history')
+    var historyPath = path.join(osHomedir, '.n_repl_history')
 
     // delete any previously created history file
     fs.unlinkSync(historyPath)

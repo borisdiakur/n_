@@ -32,7 +32,6 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.11",
-    "os-homedir": "^2.0.0",
     "repl.history": "^0.1.4"
   },
   "devDependencies": {
