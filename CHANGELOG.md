@@ -1,3 +1,6 @@
+### 2.0.2 (2019-09-22)
+* lodash upgrade to v4.17.15
+
 ### 2.0.1 (2019-05-05)
 * fix: os-homedir related deprecation warning
 
@@ -21,7 +24,7 @@
 ### 1.4.5 (2017-08-20)
 
 * fix: install on windows (resolves #21)
-
+ 
 ### 1.4.4 (2017-01-08)
 
 * fix: all additional lodash versions are now stored in the folder _extraneous_ (resolves #19)
