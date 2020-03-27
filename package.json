@@ -7,11 +7,12 @@
     "n_": "./bin/n_"
   },
   "scripts": {
-    "coveralls": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --exit -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "istanbul": "rm -rf coverage && istanbul cover ./node_modules/mocha/bin/_mocha --report html -- --exit && open coverage/lib/n_.js.html",
     "lint": "eslint .",
     "mocha": "mocha --reporter min test",
-    "test": "mocha test --exit && npm run lint"
+    "test": "nyc mocha test --exit && npm run lint",
+    "open-coverage": "open coverage/lcov-report/n_.js.html",
+    "publish-coverage": "nyc report --reporter=text-lcov | coveralls",
+    "clean": "rm -rf coverage .nyc_output"
   },
   "repository": "borisdiakur/n_",
   "keywords": [
@@ -42,9 +43,8 @@
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^6.1.4",
-    "mocha-lcov-reporter": "1.3.0"
+    "nyc": "^15.0.0"
   },
   "engines": {
     "node": ">=6.0.0"
