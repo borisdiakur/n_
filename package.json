@@ -33,7 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.15",
-    "repl.history": "^0.1.4"
+    "repl-story": "^0.1.0"
   },
   "devDependencies": {
     "coveralls": "^3.0.3",
