@@ -8,8 +8,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "mocha": "mocha --reporter min test",
-    "test": "nyc mocha test --exit && npm run lint",
+    "test:unit": "ava",
+    "test": "nyc npm run test:unit && npm run lint",
     "open-coverage": "open coverage/lcov-report/n_.js.html",
     "publish-coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf coverage .nyc_output"
@@ -37,6 +37,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "ava": "^2.4.0",
     "coveralls": "^3.0.3",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
