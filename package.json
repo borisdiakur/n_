@@ -13,7 +13,7 @@
     "test": "nyc npm run test:unit && npm run lint",
     "open-coverage": "open coverage/lcov-report/n_.js.html",
     "publish-coverage": "nyc report --reporter=text-lcov | coveralls",
-    "clean": "rm -rf coverage .nyc_output"
+    "clean": "rm -rf coverage .nyc_output tmp/histories--*"
   },
   "repository": "borisdiakur/n_",
   "keywords": [
