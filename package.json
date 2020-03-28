@@ -2,11 +2,12 @@
   "name": "n_",
   "version": "2.0.2",
   "description": "lodash REPL",
-  "main": "./lib/n_",
+  "main": "./lib/n_.js",
   "bin": {
     "n_": "./bin/n_"
   },
   "scripts": {
+    "start": "node bin/n_",
     "lint": "eslint .",
     "test:unit": "ava",
     "test": "nyc npm run test:unit && npm run lint",

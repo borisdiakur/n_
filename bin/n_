@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-var main = require('../n_.js')
+var main = require('..')
 main(process.argv.slice(2))
