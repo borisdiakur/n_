@@ -97,13 +97,22 @@ test('should evaluate with built in libs', async t => {
   t.is(n_.last, 'lodash')
 })
 
-test('should overwrite special variable _', async t => {
+test('should prevent overwriting of special variable _ and output result', async t => {
   var n_ = getNREPL()
   n_.sendLine('_="foobar"')
   t.is(n_.last, 'foobar')
   n_.sendLine('_.name')
   await n_.waitClose()
   t.is(n_.last, 'lodash')
+})
+
+test('should expose last value under __ (alias of original special variable _)', async t => {
+  var n_ = getNREPL()
+  n_.sendLine('"1"  + 2')
+  t.is(n_.last, '12')
+  n_.sendLine('40 + __')
+  await n_.waitClose()
+  t.is(n_.last, '4012')
 })
 
 test('should use lodash/fp with fp mode enabled', async t => {
