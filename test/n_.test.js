@@ -27,9 +27,9 @@ function getNREPL (args = []) {
     // note: using process.input cause MaxListenersExceededWarning to appear in test
   })
 
-  // helper to retrive line to emit direct event
+  // helper to retrieve line to emit direct event
   n_.sendLine = function (line) {
-    n_._events.line(line)
+    _.over(n_._events.line)(line)
     return n_ // for chainable calls
   }
   n_.exposedInput = exposedInput
