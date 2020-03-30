@@ -13,6 +13,8 @@ function getNREPL (args = []) {
     // ensure isolated history file for the test
     args = args.concat(['--history-path', path.join(TMP_FOLDER, '.n_history-' + Date.now())])
   }
+  const logs = []
+  const log = line => logs.push(line)
 
   const capturedOutput = []
   var exposedInput = new stream.PassThrough()
@@ -26,6 +28,8 @@ function getNREPL (args = []) {
     input: exposedInput // need to be explicit if setting put. (later could feed directly input)
     // note: using process.input cause MaxListenersExceededWarning to appear in test
   })
+  n_.log = log
+  n_.logs = logs
 
   // helper to retrieve line to emit direct event
   n_.sendLine = function (line) {
@@ -52,7 +56,7 @@ test.before(t => {
 })
 
 test('should evaluate multiline input', async t => {
-  var n_ = t.context.repl = getNREPL()
+  var n_ = getNREPL()
   n_.sendLine('var users = [')
   n_.sendLine('  { "user": "fred",   "age": 48 },')
   n_.sendLine('  { "user": "barney", "age": 36 },')
@@ -113,6 +117,61 @@ test('should expose last value under __ (alias of original special variable _)',
   n_.sendLine('40 + __')
   await n_.waitClose()
   t.is(n_.last, '4012')
+})
+
+test('should expose .lodash command', async t => {
+  var n_ = getNREPL()
+
+  n_.sendLine('const obj = {a: 2}')
+  function ensureVanilla (repl) {
+    repl.sendLine("_.get(obj, 'a')")
+    t.is(repl.last, 2, 'lodash does not seems to be vanilla')
+  }
+  function ensureFp (repl) {
+    repl.sendLine("_.get('a', obj)")
+    t.is(repl.last, 2, 'lodash is not fp')
+  }
+  ensureVanilla(n_)
+  n_.sendLine('.lodash fp')
+  ensureFp(n_)
+  n_.sendLine('.lodash reset')
+  ensureVanilla(n_)
+  n_.sendLine('.lodash swap')
+  ensureFp(n_)
+  n_.sendLine('.lodash swap')
+  ensureVanilla(n_)
+  await n_.waitClose()
+  t.deepEqual(n_.logs, [
+    'Setting lodash _ to fp flavor!',
+    'Setting lodash _ to vanilla flavor!',
+    'Setting lodash _ to fp flavor!',
+    'Setting lodash _ to vanilla flavor!'
+  ])
+
+  var fpn_ = getNREPL(['--fp'])
+  fpn_.sendLine('const obj = {a: 2}')
+  ensureFp(fpn_)
+  fpn_.sendLine('.lodash oups')
+  fpn_.sendLine('.lodash help')
+  fpn_.sendLine('.lodash current')
+  fpn_.sendLine('.lodash vanilla')
+  ensureVanilla(fpn_)
+  fpn_.sendLine('.lodash reset')
+  ensureFp(fpn_)
+  await fpn_.waitClose()
+
+  t.deepEqual(fpn_.logs, [
+    "there is no 'oups' available, see 'help'",
+    `.lodash enable you to configure the _ lodash instance of n_ repl
+- fp: set _ to lodash/fp
+- vanilla: set _ to 'vanilla' lodash
+- swap: change flavor of _ (from vanilla to fp or the reverse)
+- reset: restore original lodash version used
+- current: print current flavor of lodash in use`,
+    'Current lodash flavor is fp',
+    'Setting lodash _ to vanilla flavor!',
+    'Setting lodash _ to fp flavor!'
+  ])
 })
 
 test('should use lodash/fp with fp mode enabled', async t => {
