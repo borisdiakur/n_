@@ -37,12 +37,10 @@ function getNREPL (args = []) {
     return n_ // for chainable calls
   }
   n_.exposedInput = exposedInput
-  n_.waitClose = function (beforeCloseDelay = 200, afterCloseDelay = 120) {
+  n_.waitClose = function (delay = 0) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        n_.on('close', () => setTimeout(resolve, afterCloseDelay))
-        n_.close()
-      }, beforeCloseDelay)
+      n_.on('end-of-story', resolve)
+      setTimeout(() => n_.close(), delay)
     })
   }
 
