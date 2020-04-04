@@ -117,6 +117,13 @@ test('should expose last value under __ (alias of original special variable _)',
   t.is(n_.last, '4012')
 })
 
+const helpText = `.lodash enable you to configure the _ lodash instance of n_ repl, here are the available sub-commands:
+- fp: set _ to lodash/fp
+- vanilla: set _ to 'vanilla' lodash
+- swap: change flavor of _ (from vanilla to fp or the reverse)
+- reset: restore original lodash version used
+- current: print current flavor of lodash in use`
+
 test('should expose .lodash command', async t => {
   var n_ = getNREPL()
 
@@ -149,6 +156,7 @@ test('should expose .lodash command', async t => {
   var fpn_ = getNREPL(['--fp'])
   fpn_.sendLine('const obj = {a: 2}')
   ensureFp(fpn_)
+  fpn_.sendLine('.lodash')
   fpn_.sendLine('.lodash oups')
   fpn_.sendLine('.lodash help')
   fpn_.sendLine('.lodash current')
@@ -159,13 +167,10 @@ test('should expose .lodash command', async t => {
   await fpn_.waitClose()
 
   t.deepEqual(fpn_.logs, [
+    'Please provide a subcommand to  .lodash',
+    helpText,
     "there is no 'oups' available, see 'help'",
-    `.lodash enable you to configure the _ lodash instance of n_ repl
-- fp: set _ to lodash/fp
-- vanilla: set _ to 'vanilla' lodash
-- swap: change flavor of _ (from vanilla to fp or the reverse)
-- reset: restore original lodash version used
-- current: print current flavor of lodash in use`,
+    helpText,
     'Current lodash flavor is fp',
     'Setting lodash _ to vanilla flavor!',
     'Setting lodash _ to fp flavor!'
