@@ -147,7 +147,7 @@ test('should expose .lodash command', async t => {
   n_.sendLine('.lodash swap')
   ensureVanilla(n_)
   await n_.waitClose()
-  t.deepEqual(n_.logs, [
+  t.deepEqual(n_.logs.map(stripAnsi), [
     'Setting lodash _ to fp flavor!',
     'Setting lodash _ to vanilla flavor!',
     'Setting lodash _ to fp flavor!',
@@ -168,9 +168,9 @@ test('should expose .lodash command', async t => {
   await fpn_.waitClose()
 
   t.deepEqual(fpn_.logs.map(stripAnsi), [
-    'Please provide a subcommand to  .lodash',
+    'Please provide a sub-command for .lodash',
     helpText,
-    "there is no 'oups' available, see 'help'",
+    "there is no 'oups' sub-command, see available ones with '.lodash help'",
     helpText,
     'Current lodash flavor is fp',
     'Setting lodash _ to vanilla flavor!',
