@@ -1,9 +1,10 @@
 var test = require('ava')
 var fs = require('fs')
+var path = require('path')
 var stream = require('stream')
 var _ = require('lodash/fp')
+var stripAnsi = require('strip-ansi')
 var main_ = require('../lib/n_')
-var path = require('path')
 
 var NODE_MAJOR = _.pipe(_.get('node'), _.split('.'), _.head, Number)(process.versions)
 var TMP_FOLDER = path.join(__dirname, '..', 'tmp', `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`)
@@ -166,7 +167,7 @@ test('should expose .lodash command', async t => {
   ensureFp(fpn_)
   await fpn_.waitClose()
 
-  t.deepEqual(fpn_.logs, [
+  t.deepEqual(fpn_.logs.map(stripAnsi), [
     'Please provide a subcommand to  .lodash',
     helpText,
     "there is no 'oups' available, see 'help'",
