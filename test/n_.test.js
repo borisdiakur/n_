@@ -1,21 +1,21 @@
-var test = require('ava')
-var fs = require('fs')
-var path = require('path')
-var repl = require('repl')
-var stream = require('stream')
-var _ = require('lodash/fp')
-var stripAnsi = require('strip-ansi')
-var { wrapRepl } = require('../lib/n_')
+const test = require('ava')
+const fs = require('fs')
+const path = require('path')
+const repl = require('repl')
+const stream = require('stream')
+const _ = require('lodash/fp')
+const stripAnsi = require('strip-ansi')
+const { wrapRepl } = require('../lib/n_')
 
-var TMP_FOLDER = path.join(__dirname, '..', 'tmp', `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`)
+const TMP_FOLDER = path.join(__dirname, '..', 'tmp', `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`)
 
 function getNREPL (args) {
   const logs = []
   const log = line => logs.push(line)
 
   const capturedOutput = []
-  var exposedInput = new stream.PassThrough()
-  var instrumentedRepl = repl.start({
+  const exposedInput = new stream.PassThrough()
+  const instrumentedRepl = repl.start({
     output: new stream.Writable({
       write (chunck, encoding, cb) {
         capturedOutput.push(chunck)
@@ -25,8 +25,8 @@ function getNREPL (args) {
     input: exposedInput // need to be explicit if setting put. (later could feed directly input)
     // note: using process.input cause MaxListenersExceededWarning to appear in test
   })
-  var n_ = wrapRepl(
-    _.defaults({ replServer: instrumentedRepl, historyPath: path.join(TMP_FOLDER, '.n_history-' + Date.now()) }, args)
+  const n_ = wrapRepl(
+    _.defaults({ replServer: instrumentedRepl, historyPath: path.join(TMP_FOLDER, `.n_history-${+Date.now()}`) }, args)
   )
   n_.log = log
   n_.logs = logs
@@ -50,12 +50,12 @@ function getNREPL (args) {
 }
 
 test.before(t => {
-  for (var folder of [path.dirname(TMP_FOLDER), TMP_FOLDER]) { if (!fs.existsSync(folder)) { fs.mkdirSync(folder) } }
+  for (const folder of [path.dirname(TMP_FOLDER), TMP_FOLDER]) { if (!fs.existsSync(folder)) { fs.mkdirSync(folder) } }
 })
 
 test('should evaluate multiline input', async t => {
-  var n_ = getNREPL()
-  n_.sendLine('var users = [')
+  const n_ = getNREPL()
+  n_.sendLine('const users = [')
   n_.sendLine('  { "user": "fred",   "age": 48 },')
   n_.sendLine('  { "user": "barney", "age": 36 },')
   n_.sendLine('  { "user": "fred",   "age": 42 },')
@@ -75,14 +75,14 @@ test('should evaluate multiline input', async t => {
 })
 
 test('should evaluate simple input', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
   n_.sendLine('1+2')
   await n_.waitClose()
   t.is(n_.last, 3)
 })
 
 test('should evaluate multiple lodash method calls', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
   n_.sendLine('_.compact([1, 2, false, 4])')
   t.deepEqual(n_.last, [1, 2, 4])
   n_.sendLine('_.compact([1, false, 3, 4])')
@@ -91,7 +91,7 @@ test('should evaluate multiple lodash method calls', async t => {
 })
 
 test('should evaluate with built in libs', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
   n_.sendLine('util.isArray(_.drop([1, 2, 3]))')
   t.is(n_.last, true)
   n_.sendLine('_.name')
@@ -100,7 +100,7 @@ test('should evaluate with built in libs', async t => {
 })
 
 test('should prevent overwriting of special variable _ and output result', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
   n_.sendLine('_="foobar"')
   t.is(n_.last, 'foobar')
   n_.sendLine('_.name')
@@ -109,7 +109,7 @@ test('should prevent overwriting of special variable _ and output result', async
 })
 
 test('should expose last value under __ (alias of original special variable _)', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
   n_.sendLine('"1"  + 2')
   t.is(n_.last, '12')
   n_.sendLine('40 + __')
@@ -126,7 +126,7 @@ const helpText = `.lodash enable you to configure the _ lodash instance of n_ re
 - version: print current version of lodash in use`
 
 test('should expose .lodash command', async t => {
-  var n_ = getNREPL()
+  const n_ = getNREPL()
 
   n_.sendLine('const obj = {a: 2}')
   function ensureVanilla (repl) {
@@ -154,7 +154,7 @@ test('should expose .lodash command', async t => {
     'Setting lodash _ to vanilla flavor!'
   ])
 
-  var fpn_ = getNREPL({ fp: true })
+  const fpn_ = getNREPL({ fp: true })
   fpn_.sendLine('const obj = {a: 2}')
   ensureFp(fpn_)
   fpn_.sendLine('.lodash')
@@ -181,7 +181,7 @@ test('should expose .lodash command', async t => {
 })
 
 test('should use lodash/fp with fp mode enabled', async t => {
-  var n_ = getNREPL({ fp: true }) // --fp
+  const n_ = getNREPL({ fp: true }) // --fp
   n_.sendLine('_.map(function(v) { return v * 2; }, [1, 2, 3])')
   await n_.waitClose()
   t.deepEqual(n_.last, [2, 4, 6])
@@ -190,8 +190,8 @@ test('should use lodash/fp with fp mode enabled', async t => {
 // test 'should throw in strict mode set via command line option', was moved to integration
 
 test('should save and load repl history across multiple sessions', async t => {
-  var historyPath = path.join(TMP_FOLDER, '.n_repl_history-' + Date.now())
-  var args = { historyPath } // ensure all repl instances with have same history
+  const historyPath = path.join(TMP_FOLDER, `.n_repl_history-${Date.now()}`)
+  const args = { historyPath } // ensure all repl instances with have same history
 
   // write on consecutive sessions
   await getNREPL(args).sendLine('1+2').waitClose()
@@ -199,11 +199,11 @@ test('should save and load repl history across multiple sessions', async t => {
   await getNREPL(args).sendLine('"foobar"').waitClose()
 
   // check history (as thoroughly as possible)
-  var historyFileContent = fs.readFileSync(historyPath, 'utf-8')
+  const historyFileContent = fs.readFileSync(historyPath, 'utf-8')
   t.deepEqual(historyFileContent.split('\n'), ['1+2', 'null', '"foobar"', ''])
 
-  var n_ = getNREPL()
-  n_.sendLine('.load ' + historyPath)
+  const n_ = getNREPL()
+  n_.sendLine(`.load ${historyPath}`)
   await n_.waitClose()
   t.is(n_.last, 'foobar')
 })
