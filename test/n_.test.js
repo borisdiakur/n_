@@ -1,25 +1,21 @@
 var test = require('ava')
 var fs = require('fs')
 var path = require('path')
+var repl = require('repl')
 var stream = require('stream')
 var _ = require('lodash/fp')
 var stripAnsi = require('strip-ansi')
-var main_ = require('../lib/n_')
+var { wrapRepl } = require('../lib/n_')
 
-var NODE_MAJOR = _.pipe(_.get('node'), _.split('.'), _.head, Number)(process.versions)
 var TMP_FOLDER = path.join(__dirname, '..', 'tmp', `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`)
 
-function getNREPL (args = []) {
-  if (!args.includes('--history-path')) {
-    // ensure isolated history file for the test
-    args = args.concat(['--history-path', path.join(TMP_FOLDER, '.n_history-' + Date.now())])
-  }
+function getNREPL (args) {
   const logs = []
   const log = line => logs.push(line)
 
   const capturedOutput = []
   var exposedInput = new stream.PassThrough()
-  var n_ = main_(args, {
+  var instrumentedRepl = repl.start({
     output: new stream.Writable({
       write (chunck, encoding, cb) {
         capturedOutput.push(chunck)
@@ -29,6 +25,9 @@ function getNREPL (args = []) {
     input: exposedInput // need to be explicit if setting put. (later could feed directly input)
     // note: using process.input cause MaxListenersExceededWarning to appear in test
   })
+  var n_ = wrapRepl(
+    _.defaults({ replServer: instrumentedRepl, historyPath: path.join(TMP_FOLDER, '.n_history-' + Date.now()) }, args)
+  )
   n_.log = log
   n_.logs = logs
 
@@ -155,7 +154,7 @@ test('should expose .lodash command', async t => {
     'Setting lodash _ to vanilla flavor!'
   ])
 
-  var fpn_ = getNREPL(['--fp'])
+  var fpn_ = getNREPL({ fp: true })
   fpn_.sendLine('const obj = {a: 2}')
   ensureFp(fpn_)
   fpn_.sendLine('.lodash')
@@ -182,34 +181,17 @@ test('should expose .lodash command', async t => {
 })
 
 test('should use lodash/fp with fp mode enabled', async t => {
-  var n_ = getNREPL(['--fp'])
+  var n_ = getNREPL({ fp: true }) // --fp
   n_.sendLine('_.map(function(v) { return v * 2; }, [1, 2, 3])')
   await n_.waitClose()
   t.deepEqual(n_.last, [2, 4, 6])
 })
 
-test('should not throw in magic mode', async t => {
-  var n_ = getNREPL()
-  n_.sendLine('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1')
-  await n_.waitClose()
-  t.is(n_.last, 1)
-})
-
-test('should throw in strict mode set via command line option', async t => {
-  var n_ = getNREPL(['--use_strict'])
-  n_.sendLine('var fixed = {}; Object.preventExtensions(fixed); fixed.newProp = 1')
-  await n_.waitClose()
-
-  if (NODE_MAJOR >= 10) {
-    t.is(n_.lastError.name, 'TypeError')
-    t.is(n_.lastError.message, 'Cannot add property newProp, object is not extensible')
-  }
-  t.is(n_.last, undefined)
-})
+// test 'should throw in strict mode set via command line option', was moved to integration
 
 test('should save and load repl history across multiple sessions', async t => {
   var historyPath = path.join(TMP_FOLDER, '.n_repl_history-' + Date.now())
-  var args = ['--history-path', historyPath] // ensure all repl instances with have same history
+  var args = { historyPath } // ensure all repl instances with have same history
 
   // write on consecutive sessions
   await getNREPL(args).sendLine('1+2').waitClose()
