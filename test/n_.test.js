@@ -123,7 +123,8 @@ const helpText = `.lodash enable you to configure the _ lodash instance of n_ re
 - vanilla: set _ to 'vanilla' lodash
 - swap: change flavor of _ (from vanilla to fp or the reverse)
 - reset: restore original lodash version used
-- current: print current flavor of lodash in use`
+- current: print current flavor of lodash in use
+- version: print current version of lodash in use`
 
 test('should expose .lodash command', async t => {
   var n_ = getNREPL()
@@ -160,6 +161,7 @@ test('should expose .lodash command', async t => {
   fpn_.sendLine('.lodash')
   fpn_.sendLine('.lodash oups')
   fpn_.sendLine('.lodash help')
+  fpn_.sendLine('.lodash version')
   fpn_.sendLine('.lodash current')
   fpn_.sendLine('.lodash vanilla')
   ensureVanilla(fpn_)
@@ -172,6 +174,7 @@ test('should expose .lodash command', async t => {
     helpText,
     "there is no 'oups' sub-command, see available ones with '.lodash help'",
     helpText,
+    `Current lodash version is ${_.VERSION}`,
     'Current lodash flavor is fp',
     'Setting lodash _ to vanilla flavor!',
     'Setting lodash _ to fp flavor!'
