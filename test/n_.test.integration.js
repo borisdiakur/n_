@@ -12,7 +12,7 @@ test.cb('should protect about wrong custom colors', t => {
 })
 
 test.cb('should throw in strict mode set via command line option', t => {
-  t.timeout(2000)
+  t.timeout(4000)
 
   const n_ = spawn('node', [`${__dirname}/../bin/n_`, '--use_strict'])
   const output = []
@@ -30,7 +30,7 @@ test.cb('should throw in strict mode set via command line option', t => {
 })
 
 test.cb('should not throw in magic mode', t => {
-  t.timeout(2000)
+  t.timeout(4000)
 
   const n_ = spawn('node', [`${__dirname}/../bin/n_`])
   const output = []
