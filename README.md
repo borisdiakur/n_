@@ -85,7 +85,7 @@ Aside `--fp` and `--use_strict`/`--use-strict`, some other options are available
 The two main feature you can control is _History persistance_ and _Prompt Theme_.
 
 | Flag | aliases|Env variable| Description|Default
-|------+--------------+-------+------+--|
+|-|-|--|-|-|
 |`--history-path`|`--history`, `history-file`|`_N_HISTORY_PATH`|Location of repl history file|_`~/.n_repl_history`_|
 |`--prompt.symbol`||`_N_PROMPT__SYMBOL`|Symbol to use as `$` prompt|_`>`_|
 |`--prompt.name`||`_N_PROMPT__NAME`|Name for the prompt |_`n_`_|
