@@ -1,5 +1,9 @@
-sudo: false
 language: node_js
 node_js:
-- '9.11.2'
-- '10.5.0'
+  - '8.17.0'
+  - '10'
+  - '12'
+  - '14'
+
+after_script:
+   - npm run publish-coverage
