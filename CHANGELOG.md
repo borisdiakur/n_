@@ -1,3 +1,8 @@
+### 3.0.0 (2010-07-16)
+* BREAKING CHANGE: drop support for ancient node versions (< 8.10.0)
+* fix: support node 12
+* other goodies, see https://github.com/borisdiakur/n_/pull/27
+
 ### 2.0.2 (2019-09-22)
 * lodash upgrade to v4.17.15
 
