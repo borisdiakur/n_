@@ -1,6 +1,6 @@
 {
   "name": "n_",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "lodash REPL",
   "main": "./lib/n_.js",
   "bin": {
