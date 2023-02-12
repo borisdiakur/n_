@@ -18,3 +18,5 @@ jobs:
       - name: Publish coverage report
         if: github.ref == 'refs/heads/main'
         run: npm run publish-coverage
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
