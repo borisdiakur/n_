@@ -35,7 +35,7 @@ n_ >
 
 ### FP mode
 
-It is possible to use lodash’s functional programming variant `lodash/fp`:
+Use lodash's functional programming variant `lodash/fp`:
 
 ```shell
 $ n_ --fp
@@ -46,7 +46,7 @@ n_ >
 
 ### Strict mode
 
-It is possible to enable strict mode in Node.js >= 4.x:
+Enable strict mode:
 
 ```shell
 $ n_ --use_strict
@@ -56,7 +56,7 @@ n_ >
 ## Repl specificities
 
 #### Commands
-Some commands are available to facilitate some operations, and are host under `.lodash` repl command:
+Commands which facilitate changing the lodash flavor can be executed with the `.lodash` repl command:
 - `.lodash fp`: switch to lodash/fp
 - `.lodash vanilla`: switch to _vanilla_ lodash mode
 - `.lodash reset`: switch to initial lodash mode
