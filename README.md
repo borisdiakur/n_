@@ -2,7 +2,6 @@
 
 Node.js REPL with lodash
 
-[![Build Status](https://travis-ci.org/borisdiakur/n_.svg?branch=master)](https://travis-ci.org/borisdiakur/n_)
 [![Coverage Status](https://coveralls.io/repos/borisdiakur/n_/badge.svg?branch=master)](https://coveralls.io/r/borisdiakur/n_?branch=master)
 [![npm version](https://badge.fury.io/js/n_.svg)](http://badge.fury.io/js/n_)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -80,22 +79,13 @@ n_ > 'number '+ __
 
 #### Configuration options
 
-Aside `--fp` and `--use_strict`/`--use-strict`, some other options are available either as CLI flags, or via environment variables.(with a trailing `_N_`)
+Aside `--fp` and `--use_strict`/`--use-strict`, some other options are available either as CLI flags, or via environment variables (with a trailing `_N_`).
 
-The two main feature you can control is _History persistance_ and _Prompt Theme_.
+Available cli options can be viewed with:
 
-| Flag | aliases|Env variable| Description|Default
-|-|-|--|-|-|
-|`--history-path`|`--history`, `history-file`|`_N_HISTORY_PATH`|Location of repl history file|_`~/.n_repl_history`_|
-|`--prompt.symbol`||`_N_PROMPT__SYMBOL`|Symbol to use as `$` prompt|_`>`_|
-|`--prompt.name`||`_N_PROMPT__NAME`|Name for the prompt |_`n_`_|
-|`--prompt.color.name`||`_N_PROMPT__COLOR__NAME`|Color for prompt name `n_`|`blue`|
-|`--prompt.color.symbol`||`_N_PROMPT__COLOR__SYMBOL`|Color for prompt symbol|_`red`_|
-|`--prompt.color.flavor`||`_N_PROMPT__COLOR__FLAVOR`|Color for section of prompt about lodash flavor in use|`cyan`|
-|`--prompt.color.help`||`_N_PROMPT__COLOR__HELP`|Color for section of prompt about lodash flavor in use|`green`|
-
-
-About styling, valid colors are: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`,`gray`, and `dim`.
+```shell
+n_ --help
+```
 
 -----
 Enjoy! :rocket:

@@ -15,3 +15,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm ci
       - run: npm test
+      - name: Publish coverage report
+        if: github.ref == 'refs/heads/main'
+        run: npm run publish-coverage
