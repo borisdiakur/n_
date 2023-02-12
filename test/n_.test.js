@@ -1,4 +1,4 @@
-const test = require('ava')
+const test = require('ava').default
 const fs = require('fs')
 const path = require('path')
 const repl = require('repl')
@@ -7,26 +7,40 @@ const _ = require('lodash/fp')
 const stripAnsi = require('strip-ansi')
 const { wrapRepl } = require('../lib/n_')
 
-const TMP_FOLDER = path.join(__dirname, '..', 'tmp', `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`)
+const TMP_FOLDER = path.join(
+  __dirname,
+  '..',
+  'tmp',
+  `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`
+)
 
-function getNREPL (args) {
+async function getNREPL(args) {
+  const c = (await import('chalk')).default
+
   const logs = []
-  const log = line => logs.push(line)
+  const log = (line) => logs.push(line)
 
   const capturedOutput = []
   const exposedInput = new stream.PassThrough()
   const instrumentedRepl = repl.start({
     output: new stream.Writable({
-      write (chunck, encoding, cb) {
+      write(chunck, encoding, cb) {
         capturedOutput.push(chunck)
         cb()
-      }
+      },
     }),
-    input: exposedInput // need to be explicit if setting put. (later could feed directly input)
+    input: exposedInput, // need to be explicit if setting put. (later could feed directly input)
     // note: using process.input cause MaxListenersExceededWarning to appear in test
   })
   const n_ = wrapRepl(
-    _.defaults({ replServer: instrumentedRepl, historyPath: path.join(TMP_FOLDER, `.n_history-${+Date.now()}`) }, args)
+    _.defaults(
+      {
+        replServer: instrumentedRepl,
+        historyPath: path.join(TMP_FOLDER, `.n_history-${+Date.now()}`),
+      },
+      args
+    ),
+    c
   )
   n_.log = log
   n_.logs = logs
@@ -44,17 +58,25 @@ function getNREPL (args) {
     })
   }
 
-  Object.defineProperty(n_, 'capturedOutput', { get () { return capturedOutput.join('\n') } })
+  Object.defineProperty(n_, 'capturedOutput', {
+    get() {
+      return capturedOutput.join('\n')
+    },
+  })
   // TODO: later could use capturedOutput to add extract test (after cleaning prompts and else)
   return n_
 }
 
-test.before(t => {
-  for (const folder of [path.dirname(TMP_FOLDER), TMP_FOLDER]) { if (!fs.existsSync(folder)) { fs.mkdirSync(folder) } }
+test.before(() => {
+  for (const folder of [path.dirname(TMP_FOLDER), TMP_FOLDER]) {
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder)
+    }
+  }
 })
 
-test('should evaluate multiline input', async t => {
-  const n_ = getNREPL()
+test('should evaluate multiline input', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('const users = [')
   n_.sendLine('  { "user": "fred",   "age": 48 },')
   n_.sendLine('  { "user": "barney", "age": 36 },')
@@ -74,15 +96,15 @@ test('should evaluate multiline input', async t => {
   t.is(n_.last[3].age, 42)
 })
 
-test('should evaluate simple input', async t => {
-  const n_ = getNREPL()
+test('should evaluate simple input', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('1+2')
   await n_.waitClose()
   t.is(n_.last, 3)
 })
 
-test('should evaluate multiple lodash method calls', async t => {
-  const n_ = getNREPL()
+test('should evaluate multiple lodash method calls', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('_.compact([1, 2, false, 4])')
   t.deepEqual(n_.last, [1, 2, 4])
   n_.sendLine('_.compact([1, false, 3, 4])')
@@ -90,8 +112,8 @@ test('should evaluate multiple lodash method calls', async t => {
   t.deepEqual(n_.last, [1, 3, 4])
 })
 
-test('should evaluate with built in libs', async t => {
-  const n_ = getNREPL()
+test('should evaluate with built in libs', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('util.isArray(_.drop([1, 2, 3]))')
   t.is(n_.last, true)
   n_.sendLine('_.name')
@@ -99,8 +121,8 @@ test('should evaluate with built in libs', async t => {
   t.is(n_.last, 'lodash')
 })
 
-test('should prevent overwriting of special variable _ and output result', async t => {
-  const n_ = getNREPL()
+test('should prevent overwriting of special variable _ and output result', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('_="foobar"')
   t.is(n_.last, 'foobar')
   n_.sendLine('_.name')
@@ -108,8 +130,8 @@ test('should prevent overwriting of special variable _ and output result', async
   t.is(n_.last, 'lodash')
 })
 
-test('should expose last value under __ (alias of original special variable _)', async t => {
-  const n_ = getNREPL()
+test('should expose last value under __ (alias of original special variable _)', async (t) => {
+  const n_ = await getNREPL()
   n_.sendLine('"1"  + 2')
   t.is(n_.last, '12')
   n_.sendLine('40 + __')
@@ -125,15 +147,15 @@ const helpText = `.lodash enable you to configure the _ lodash instance of n_ re
 - current: print current flavor of lodash in use
 - version: print current version of lodash in use`
 
-test('should expose .lodash command', async t => {
-  const n_ = getNREPL()
+test('should expose .lodash command', async (t) => {
+  const n_ = await getNREPL()
 
   n_.sendLine('const obj = {a: 2}')
-  function ensureVanilla (repl) {
+  function ensureVanilla(repl) {
     repl.sendLine("_.get(obj, 'a')")
     t.is(repl.last, 2, 'lodash does not seems to be vanilla')
   }
-  function ensureFp (repl) {
+  function ensureFp(repl) {
     repl.sendLine("_.get('a', obj)")
     t.is(repl.last, 2, 'lodash is not fp')
   }
@@ -151,10 +173,10 @@ test('should expose .lodash command', async t => {
     'Setting lodash _ to fp flavor!',
     'Setting lodash _ to vanilla flavor!',
     'Setting lodash _ to fp flavor!',
-    'Setting lodash _ to vanilla flavor!'
+    'Setting lodash _ to vanilla flavor!',
   ])
 
-  const fpn_ = getNREPL({ fp: true })
+  const fpn_ = await getNREPL({ fp: true })
   fpn_.sendLine('const obj = {a: 2}')
   ensureFp(fpn_)
   fpn_.sendLine('.lodash')
@@ -176,12 +198,12 @@ test('should expose .lodash command', async t => {
     `Current lodash version is ${_.VERSION}`,
     'Current lodash flavor is fp',
     'Setting lodash _ to vanilla flavor!',
-    'Setting lodash _ to fp flavor!'
+    'Setting lodash _ to fp flavor!',
   ])
 })
 
-test('should use lodash/fp with fp mode enabled', async t => {
-  const n_ = getNREPL({ fp: true }) // --fp
+test('should use lodash/fp with fp mode enabled', async (t) => {
+  const n_ = await getNREPL({ fp: true }) // --fp
   n_.sendLine('_.map(function(v) { return v * 2; }, [1, 2, 3])')
   await n_.waitClose()
   t.deepEqual(n_.last, [2, 4, 6])
@@ -189,20 +211,20 @@ test('should use lodash/fp with fp mode enabled', async t => {
 
 // test 'should throw in strict mode set via command line option', was moved to integration
 
-test('should save and load repl history across multiple sessions', async t => {
+test('should save and load repl history across multiple sessions', async (t) => {
   const historyPath = path.join(TMP_FOLDER, `.n_repl_history-${Date.now()}`)
   const args = { historyPath } // ensure all repl instances with have same history
 
   // write on consecutive sessions
-  await getNREPL(args).sendLine('1+2').waitClose()
-  await getNREPL(args).sendLine('null').waitClose()
-  await getNREPL(args).sendLine('"foobar"').waitClose()
+  await (await getNREPL(args)).sendLine('1+2').waitClose()
+  await (await getNREPL(args)).sendLine('null').waitClose()
+  await (await getNREPL(args)).sendLine('"foobar"').waitClose()
 
   // check history (as thoroughly as possible)
   const historyFileContent = fs.readFileSync(historyPath, 'utf-8')
   t.deepEqual(historyFileContent.split('\n'), ['1+2', 'null', '"foobar"', ''])
 
-  const n_ = getNREPL()
+  const n_ = await getNREPL()
   n_.sendLine(`.load ${historyPath}`)
   await n_.waitClose()
   t.is(n_.last, 'foobar')

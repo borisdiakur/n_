@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "checkJs": true,
+    "allowJs": true,
+    "lib": ["es2021", "dom"]
+  },
+  "exclude": ["node_modules"]
+}

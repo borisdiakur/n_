@@ -1,5 +1,8 @@
-### 3.0.0 (2010-07-16)
-* BREAKING CHANGE: drop support for ancient node versions (< 8.10.0)
+### 4.0.0 (2023-02-12)
+* BREAKING CHANGE: drop support for ancient node versions (< 18)
+
+### 3.0.0 (2020-07-16)
+* BREAKING CHANGE: drop support for ancient node versions (< 8)
 * fix: support node 12
 * other goodies, see https://github.com/borisdiakur/n_/pull/27
 
