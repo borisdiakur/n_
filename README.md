@@ -64,22 +64,22 @@ Commands which facilitate changing the lodash flavor can be executed with the `.
 - `.lodash current`: output current lodash flavor in use
 - `.lodash version`: output lodash version in use
 
-and the `.lodash help` to have more details about lodash repl commands
+Use `.lodash help` to view the available repl commands within the repl.
 
 #### `__` as _last evaluated expression_
-Special character `_` refer to the lodash instance, and cannot hold value of last expression.
-To provide the same feature, `__` was introduced:
+The special character `_` refers to the lodash instance, and cannot hold the value of the last expression.
+Use `__` to access the last expression instead:
 
 ```shell
 n_ > 10 + 2
 12
-n_ > 'number '+ __
+n_ > 'number ' + __
 'number 12'
 ```
 
 #### Configuration options
 
-Aside `--fp` and `--use_strict`/`--use-strict`, some other options are available either as CLI flags, or via environment variables (with a trailing `_N_`).
+Aside from `--fp` and `--use_strict`/`--use-strict`, other options are available either as CLI flags or via environment variables (with a trailing `_N_`).
 
 Available cli options can be viewed with:
 
