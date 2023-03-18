@@ -139,7 +139,7 @@ test('should expose last value under __ (alias of original special variable _)',
   t.is(n_.last, '4012')
 })
 
-const helpText = `.lodash enable you to configure the _ lodash instance of n_ repl, here are the available sub-commands:
+const helpText = `.lodash enables you to configure the _ lodash instance of n_ repl, here are the available sub-commands:
 - fp: set _ to lodash/fp
 - vanilla: set _ to 'vanilla' lodash
 - swap: change flavor of _ (from vanilla to fp or the reverse)
