@@ -53,7 +53,7 @@ n_ >
 
 ## Repl specificities
 
-#### Commands
+### Commands
 Commands which facilitate changing the lodash flavor can be executed with the `.lodash` repl command:
 - `.lodash fp`: switch to lodash/fp
 - `.lodash vanilla`: switch to _vanilla_ lodash mode
@@ -64,7 +64,7 @@ Commands which facilitate changing the lodash flavor can be executed with the `.
 
 Use `.lodash help` to view the available repl commands within the repl.
 
-#### `__` as _last evaluated expression_
+### `__` as _last evaluated expression_
 The special character `_` refers to the lodash instance, and cannot hold the value of the last expression.
 Use `__` to access the last expression instead:
 
@@ -75,7 +75,7 @@ n_ > 'number ' + __
 'number 12'
 ```
 
-#### Configuration options
+### Configuration options
 
 Aside from `--fp` and `--use_strict`/`--use-strict`, other options are available either as CLI flags or via environment variables (with a trailing `_N_`).
 
