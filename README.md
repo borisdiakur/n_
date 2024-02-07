@@ -2,7 +2,7 @@
 
 Node.js REPL with lodash
 
-[![Coverage Status](https://coveralls.io/repos/borisdiakur/n_/badge.svg?branch=master)](https://coveralls.io/r/borisdiakur/n_?branch=master)
+[![Coverage Status](https://coveralls.io/repos/borisdiakur/n_/badge.svg?branch=main)](https://coveralls.io/r/borisdiakur/n_?branch=main)
 
 ![animated gif showing usage of n_](https://cloud.githubusercontent.com/assets/527049/6358450/ddcb3144-bc6b-11e4-81bd-a3661407f87a.gif)
 
