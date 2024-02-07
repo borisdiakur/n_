@@ -4,14 +4,13 @@ const path = require('path')
 const repl = require('repl')
 const stream = require('stream')
 const _ = require('lodash/fp')
-const stripAnsi = require('strip-ansi')
 const { wrapRepl } = require('../lib/n_')
 
 const TMP_FOLDER = path.join(
   __dirname,
   '..',
   'tmp',
-  `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`
+  `histories--${new Date().toISOString().replace(/T.*$/, '')}--${process.pid}`,
 )
 
 async function getNREPL(args) {
@@ -38,9 +37,9 @@ async function getNREPL(args) {
         replServer: instrumentedRepl,
         historyPath: path.join(TMP_FOLDER, `.n_history-${+Date.now()}`),
       },
-      args
+      args,
     ),
-    c
+    c,
   )
   n_.log = log
   n_.logs = logs
@@ -149,6 +148,8 @@ const helpText = `.lodash enables you to configure the _ lodash instance of n_ r
 
 test('should expose .lodash command', async (t) => {
   const n_ = await getNREPL()
+
+  const stripAnsi = (await import('strip-ansi')).default
 
   n_.sendLine('const obj = {a: 2}')
   function ensureVanilla(repl) {

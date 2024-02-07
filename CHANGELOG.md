@@ -1,3 +1,6 @@
+### 4.0.1 (2024-02-07)
+* fix: support node 20
+
 ### 4.0.0 (2023-02-12)
 * BREAKING CHANGE: drop support for ancient node versions (< 18)
 
