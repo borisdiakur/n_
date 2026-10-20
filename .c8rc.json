@@ -6,6 +6,6 @@
       "text","html"
     ],
     "include": [
-      "lib"
+      "lib/**/*.js"
     ]
 }

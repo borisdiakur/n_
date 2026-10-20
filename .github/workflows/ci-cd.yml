@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 18 ]
+        node: [ 22, 24 ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -16,7 +16,8 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: Publish coverage report
-        if: github.ref == 'refs/heads/main'
-        run: npm run publish-coverage
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        if: github.ref == 'refs/heads/main' && matrix.node == 24
+        uses: coverallsapp/github-action@v2
+        with:
+          file: coverage/lcov.info
+          format: lcov
