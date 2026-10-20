@@ -33,7 +33,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "chalk": "^5.6.2",
+    "chalk": "^6.0.1",
     "lodash": "^4.18.1",
     "repl-story": "^0.3.3",
     "yargs": "^17.7.3"
