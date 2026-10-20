@@ -3,9 +3,9 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  extends: ['eslint:recommended'],
+  parserOptions: {
+    ecmaVersion: 2022,
+  },
   root: true,
-  rules: { '@typescript-eslint/no-var-requires': 0 },
 }
