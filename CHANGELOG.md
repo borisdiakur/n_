@@ -1,3 +1,8 @@
+### 5.0.0 (2026-11-20)
+* BREAKING CHANGE: drop support node versions < 22
+* lodash upgrade to v4.18.1
+* also update chalk to v6.0.1, replstory upgrade to v0.3.3, and yargs to v18.2.0
+
 ### 4.0.1 (2024-02-07)
 * fix: support node 20
 
